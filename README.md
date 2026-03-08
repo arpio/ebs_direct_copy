@@ -30,7 +30,7 @@ For evacuation scenarios, running this tool from [AWS CloudShell](https://consol
 
 **Setup in CloudShell:**
 ```bash
-curl -O https://raw.githubusercontent.com/your-org/ebs_direct_copy/main/ebs_direct_copy.py
+curl -O https://raw.githubusercontent.com/arpio/ebs_direct_copy/main/ebs_direct_copy.py
 python ebs_direct_copy.py --from-region me-south-1 snap-0abc1234def567890
 ```
 
