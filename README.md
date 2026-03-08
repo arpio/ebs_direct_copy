@@ -19,6 +19,23 @@ Rather than delegating the copy to AWS (as `ec2:CopySnapshot` does), this tool:
 
 Block transfers run in parallel across a shared thread pool. AMI copies transfer all underlying snapshots concurrently, then re-register the AMI in the destination region. EC2 instance copies first create an AMI (without rebooting), then copy that AMI.
 
+## Recommended: run from AWS CloudShell
+
+For evacuation scenarios, running this tool from [AWS CloudShell](https://console.aws.amazon.com/cloudshell) in the **destination region** is strongly recommended:
+
+- No credentials to configure — CloudShell runs with your console identity
+- Network traffic stays within AWS, avoiding internet round-trips for every block transfer
+- `python3`, `pip`, and `boto3` are all pre-installed — no setup required
+- The session persists for the duration of the copy
+
+**Setup in CloudShell:**
+```bash
+curl -O https://raw.githubusercontent.com/your-org/ebs_direct_copy/main/ebs_direct_copy.py
+python ebs_direct_copy.py --from-region me-south-1 snap-0abc1234def567890
+```
+
+Open CloudShell from the AWS Console by clicking the terminal icon in the top navigation bar, and ensure you have selected your **destination region** before launching it.
+
 ## Requirements
 
 - Python 3.10+

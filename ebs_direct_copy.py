@@ -871,16 +871,17 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, _handle_sigint)
 
-    with ThreadPoolExecutor(max_workers=len(source_ids)) as executor:
+    with ThreadPoolExecutor(max_workers=args.workers) as block_executor, \
+         ThreadPoolExecutor(max_workers=len(source_ids)) as item_executor:
         item_futures = {
-            executor.submit(
+            item_executor.submit(
                 process_item,
                 idx=idx,
                 source_id=src_id,
                 src_region=args.from_region,
                 clients=clients,
                 display=display,
-                executor=executor,
+                executor=block_executor,
                 description=args.description,
                 name=args.name,
                 kms_key_id=args.kms_key_id,
